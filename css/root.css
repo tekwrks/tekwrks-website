@@ -1,0 +1,81 @@
+body,html{
+	height:100%;
+	width:100%;
+	font-family: sans-serif;
+}
+body{
+	margin:0;
+	overflow-x:hidden;
+	overflow-y:auto;
+	background-color:#F0F0F0;
+	color: #364F6B;
+}
+div,img,p{
+	padding:0;
+	margin:0;
+}
+img{
+	height:auto;
+}
+.unselectable{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	cursor:default;
+}
+
+section, header, footer, main {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+header {
+	height: 100%;
+}
+
+/* LOGO */
+h1.logo {
+	color: #43DDE6;
+	font-family: 'Bungee', sans-serif;
+	font-size: 10rem;
+	text-align:center;
+}
+
+/* STATEMENT */
+.statement {
+	margin: 5rem auto;
+}
+.statement > p {
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
+	font-size: 4rem;
+	font-weight: bold;
+	text-align: center;
+	cursor: default;
+}
+.statement > p > .focus {
+	color: #FC5185;
+}
+
+/* DICTIONARY CARD */
+.card {
+	display: inline-block;
+	padding: 2rem;
+	border-radius: 5px;
+	box-shadow: 0 4px 6px 0 rgba(0,0,0,0.40);
+
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-top: 2rem;
+}
+.card > h1 {
+	color: #FC5185;
+}
+.card > ol {
+	list-style: decimal inside;
+}
+.card li {
+
+}
