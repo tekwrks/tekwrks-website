@@ -1,0 +1,40 @@
+sudo: required
+
+env:
+  global:
+    - PROJECT_NAME=tekwrks
+    - DOCKER_IMAGE_NAME=tekwrks-website
+
+language: node_js
+node_js:
+  - '10'
+
+# Cache Gcloud SDK between commands
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
+services:
+  - docker
+
+script:
+  - make
+
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash >/dev/null; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - git clone https://github.com/tekwrks/MANAGE
+
+deploy:
+  - provider: script
+    script: chmod 500 ./MANAGE/gcloud/push.sh && ./MANAGE/gcloud/push.sh
+    skip_cleanup: true
+    on:
+      branch: master
+
+notifications:
+  slack:
+    secure: "X+0mbhN1gWwSMCGTrwHu1BmE3EhptP0Xo2A1SEMK5Nhzdkd+h5srOhf2BhP6ZbaOV9nbg+8NiZ9JN6HRYJYy5U7rp+tU1u08OO4IPw+Rj7tJYlO1WEHiyvJAnGXoE59ltmMwNJUbeuGEt3hIEr3TGfHftMghlaHOvvENtrQwHes77YOOT513Hqo49JJsKeZDz59X8A6LeOWvx6NlaKguAn0ErQt8ReFhQ62OEY0kv5u7RBiTnCeGPdK+uH3g78vxrR+vcTogs7QmFjuZd1WY5twVPXuCszn0TGzbh4zRzINoQO5ClJOyQutdXi1viuKOeH9t4Q5+fPeVzYphTgEQBo68sgLjk4WMJlvfGhbWpgEW/nb4LIKQrfx7VmhWsuq/40g80pB/CMfXT/tpCVToP/1rnUB5KQNLZJIuvOCRWyun8RbhhmlDex+/sRo5GrR8Jk8HogDZ0tQzmLhQnjfke1XsRJfKvKip05wjAEEAn+Gw+KBiN5RFDlC/oT2r8+jcaIgqwCc+gUQW0LYQ/sJkzn54duwcySSfqhMgzMlp5MbB3KH+oGnnVar7x02Qi7SdJkE8MDOxDKKXF9PR7Ttlqioj9JkslICRQazu34hY0IGyagHLSvLNCZuOTPMfsnhRev53g0hVKL+rVX5NQQvIbDwSyIiswzm2hGAf5y5pRvs="
+
