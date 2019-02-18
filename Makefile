@@ -1,5 +1,5 @@
 project=tekwrks
-name=website-public
+name=tekwrks-website
 
 .PHONY: build
 build:
