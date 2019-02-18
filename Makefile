@@ -4,7 +4,7 @@ name=tekwrks-website
 .PHONY: build
 build:
 	docker image build \
-		-t ${repo}/${name}:latest \
+		-t ${project}/${name}:latest \
 		.
 
 .PHONY:run
